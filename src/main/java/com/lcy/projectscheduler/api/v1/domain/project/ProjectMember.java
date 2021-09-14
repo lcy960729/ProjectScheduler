@@ -1,15 +1,61 @@
 package com.lcy.projectscheduler.api.v1.domain.project;
 
+import com.lcy.projectscheduler.api.v1.domain.Member.permission.Permission;
+import com.lcy.projectscheduler.api.v1.domain.Member.permission.ProjectPermission;
+import com.lcy.projectscheduler.api.v1.domain.Member.Member;
+import com.lcy.projectscheduler.api.v1.domain.Member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
+import lombok.NoArgsConstructor;
 
-public class ProjectMember extends BaseEntity {
+import javax.persistence.*;
+
+@Entity
+@NoArgsConstructor
+public class ProjectMember extends BaseEntity implements Member {
+
+    @ManyToOne
+    @JoinColumn(name = "user")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "project")
     private Project project;
 
-    private ProjectAuthority projectAuthority;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private MemberState state;
 
-    public boolean auth(Project project) {
-        return projectAuthority.auth(project);
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ProjectPermission projectPermission;
+
+    public Project getProject() {
+        return project;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    private ProjectMember(User user, Project project, MemberState memberState, ProjectPermission projectAuthority) {
+        this.user = user;
+        this.project = project;
+        this.state = memberState;
+        this.projectPermission = projectAuthority;
+    }
+
+    public static ProjectMember registerSuperManager(User user, Project project) {
+        return new ProjectMember(user, project, MemberState.JOINED, ProjectPermission.SUPER_MANAGER);
+    }
+
+    public static ProjectMember registerMember(User user, Project project) {
+        return new ProjectMember(user, project, MemberState.JOINED, ProjectPermission.MEMBER);
+    }
+
+    @Override
+    public void auth(Permission needPermission) {
+        state.checkRegistered();
+        projectPermission.checkPermission(needPermission);
     }
 }
