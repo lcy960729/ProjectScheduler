@@ -1,26 +1,56 @@
 package com.lcy.projectscheduler.api.v1.domain.project;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
-import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
+import com.lcy.projectscheduler.api.v1.temp.session.Session;
+import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.apache.catalina.core.ApplicationPushBuilder;
+import org.springframework.context.ApplicationEventPublisher;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
+@Getter
+@Entity(name = "project")
+@NoArgsConstructor
 public class Project extends BaseEntity {
+    @Column
     private String title;
+
+    @Column
     private String subject;
 
-    private LocalDateTime startDate;
-    private LocalDateTime deadlineDate;
+    @Column
+    private LocalDate startDate;
 
-    private List<ProjectMember> participants = new ArrayList<>();
+    @Column
+    private LocalDate deadlineDate;
 
-    private List<Session> sessions = new ArrayList<>();
+    @OneToMany(mappedBy = "project")
+    private Set<ProjectMember> participants = new HashSet<>();
 
-    public Session createSession() {
-        return new Session();
+    @Transient
+    private Set<Session> sessions = new HashSet<>();
+
+    private Project(String title, String subject, LocalDate startDate, LocalDate deadlineDate) {
+        this.title = title;
+        this.subject = subject;
+        this.startDate = startDate;
+        this.deadlineDate = deadlineDate;
     }
 
+    public static Project create(CreateProjectDTO dto) {
+        return new Project(dto.getTitle(), dto.getSubject(), dto.getStartDate(), dto.getDeadlineDate());
+    }
 
+    public void addMember(ProjectMember projectMember) {
+        participants.add(projectMember);
+    }
 }
