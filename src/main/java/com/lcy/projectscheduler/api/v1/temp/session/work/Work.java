@@ -1,8 +1,9 @@
-package com.lcy.projectscheduler.api.v1.domain.project.session.work;
+package com.lcy.projectscheduler.api.v1.temp.session.work;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Work extends BaseEntity {
     private String title;
@@ -14,5 +15,7 @@ public class Work extends BaseEntity {
     private LocalDateTime deadlineDate;
 
     private WorkState state;
+
     private Worker worker;
+    private List<Worker> coworker;
 }
