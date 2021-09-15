@@ -1,14 +1,12 @@
 package com.lcy.projectscheduler.api.v1.domain.invitation;
 
-import com.lcy.projectscheduler.api.v1.domain.Member.permission.Permission;
+import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
 import com.lcy.projectscheduler.api.v1.repository.InvitationRepository;
 import com.lcy.projectscheduler.api.v1.repository.ProjectMemberRepository;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
-import com.lcy.projectscheduler.exception.AlreadyProcessedInvitationException;
-import com.lcy.projectscheduler.exception.HasNotPermissionException;
-import com.lcy.projectscheduler.exception.NotFoundEntityException;
+import com.lcy.projectscheduler.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -30,9 +28,9 @@ public class InvitationService {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    public Invitation invite(long senderId, long receiverId, long projectId) {
+    public Invitation invite(long senderId, long receiverId, long projectId)  {
         ProjectMember projectMember = projectMemberRepository.findByUserIdAndProjectId(senderId, projectId)
-                .orElseThrow(HasNotPermissionException::new);
+                .orElseThrow(NotRegisteredMemberException::new);
 
         projectMember.auth(Permission.INVITE);
 
@@ -56,10 +54,6 @@ public class InvitationService {
             throw new HasNotPermissionException();
         }
 
-        if (invitation.isNotWaiting()) {
-            throw new AlreadyProcessedInvitationException();
-        }
-
         invitation.accept(publisher);
 
         invitationRepository.save(invitation);
@@ -72,10 +66,6 @@ public class InvitationService {
 
         if (invitation.isNotSameReceiverId(receiverId)) {
             throw new HasNotPermissionException();
-        }
-
-        if (invitation.isNotWaiting()) {
-            throw new AlreadyProcessedInvitationException();
         }
 
         invitation.reject();

@@ -38,20 +38,30 @@ public class Invitation extends BaseEntity {
     }
 
     public void accept(ApplicationEventPublisher publisher) {
-        state = InvitationState.DONE;
-
-        publisher.publishEvent(new AcceptInvitationEvent(this, receiver, project));
+        state.accept(this, publisher);
     }
 
     public void reject() {
-        state = InvitationState.REJECT;
-    }
-
-    public boolean isNotWaiting() {
-        return state != InvitationState.WAITING;
+        state.reject(this);
     }
 
     public boolean isNotSameReceiverId(long receiverId) {
         return !receiver.getId().equals(receiverId);
+    }
+
+    public InvitationState getState() {
+        return state;
+    }
+
+    protected void setState(InvitationState state) {
+        this.state = state;
+    }
+
+    protected User getReceiver() {
+        return receiver;
+    }
+
+    protected Project getProject() {
+        return project;
     }
 }
