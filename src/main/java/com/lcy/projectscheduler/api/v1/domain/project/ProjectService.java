@@ -5,6 +5,8 @@ import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.repository.ProjectMemberRepository;
 import com.lcy.projectscheduler.api.v1.repository.ProjectRepository;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
+import com.lcy.projectscheduler.exception.HasNotPermissionException;
+import com.lcy.projectscheduler.exception.NotFoundEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class ProjectService {
     @Transactional
     public Project create(CreateProjectDTO createProjectDTO) {
         User user = userRepository.findById(createProjectDTO.getManager())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(NotFoundEntityException::new);
 
         Project newProject = Project.create(createProjectDTO);
         newProject = projectRepository.save(newProject);
