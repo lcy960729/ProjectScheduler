@@ -1,9 +1,9 @@
 package com.lcy.projectscheduler.api.v1.domain.project;
 
-import com.lcy.projectscheduler.api.v1.domain.Member.permission.Permission;
-import com.lcy.projectscheduler.api.v1.domain.Member.permission.ProjectPermission;
-import com.lcy.projectscheduler.api.v1.domain.Member.Member;
-import com.lcy.projectscheduler.api.v1.domain.Member.state.MemberState;
+import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
+import com.lcy.projectscheduler.api.v1.domain.member.permission.ProjectPermission;
+import com.lcy.projectscheduler.api.v1.domain.member.Member;
+import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
 import lombok.NoArgsConstructor;
@@ -15,11 +15,11 @@ import javax.persistence.*;
 public class ProjectMember extends BaseEntity implements Member {
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "project")
+    @JoinColumn
     private Project project;
 
     @Column
@@ -57,5 +57,13 @@ public class ProjectMember extends BaseEntity implements Member {
     public void auth(Permission needPermission) {
         state.checkRegistered();
         projectPermission.checkPermission(needPermission);
+    }
+
+    public MemberState getState() {
+        return state;
+    }
+
+    public ProjectPermission getProjectPermission() {
+        return projectPermission;
     }
 }
