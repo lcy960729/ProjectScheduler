@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.api.v1.domain.Member.state;
+package com.lcy.projectscheduler.api.v1.domain.member.state;
 
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 

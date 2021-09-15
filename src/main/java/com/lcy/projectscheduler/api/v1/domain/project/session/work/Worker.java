@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.api.v1.temp.session.work;
+package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
 import com.lcy.projectscheduler.api.v1.domain.user.User;
 
