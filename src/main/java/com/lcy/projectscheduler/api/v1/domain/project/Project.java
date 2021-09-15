@@ -1,18 +1,12 @@
 package com.lcy.projectscheduler.api.v1.domain.project;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
-import com.lcy.projectscheduler.api.v1.temp.session.Session;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.core.ApplicationPushBuilder;
-import org.springframework.context.ApplicationEventPublisher;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,10 +27,10 @@ public class Project extends BaseEntity {
     @Column
     private LocalDate deadlineDate;
 
-    @OneToMany(mappedBy = "project")
-    private Set<ProjectMember> participants = new HashSet<>();
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    private Set<ProjectMember> projectMembers = new HashSet<>();
 
-    @Transient
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private Set<Session> sessions = new HashSet<>();
 
     private Project(String title, String subject, LocalDate startDate, LocalDate deadlineDate) {
@@ -51,6 +45,6 @@ public class Project extends BaseEntity {
     }
 
     public void addMember(ProjectMember projectMember) {
-        participants.add(projectMember);
+        projectMembers.add(projectMember);
     }
 }
