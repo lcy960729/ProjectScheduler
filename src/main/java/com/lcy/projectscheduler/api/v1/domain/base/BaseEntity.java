@@ -2,6 +2,9 @@ package com.lcy.projectscheduler.api.v1.domain.base;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,15 +13,18 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
     @Column(name = "created")
+    @CreatedDate
     protected LocalDateTime created;
 
     @Column(name = "updated")
+    @LastModifiedDate
     protected LocalDateTime updated;
 
     @Override
