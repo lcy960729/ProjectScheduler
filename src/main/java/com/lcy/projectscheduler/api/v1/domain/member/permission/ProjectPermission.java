@@ -1,11 +1,11 @@
-package com.lcy.projectscheduler.api.v1.domain.Member.permission;
+package com.lcy.projectscheduler.api.v1.domain.member.permission;
 
 import com.lcy.projectscheduler.exception.HasNotPermissionException;
 
 import java.util.*;
 
 public enum ProjectPermission implements MemberPermission {
-    MEMBER(EnumSet.of(Permission.CREATE, Permission.READ)),
+    MEMBER(EnumSet.of(Permission.READ)),
     MANAGER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE, Permission.DELETE, Permission.INVITE)),
     SUPER_MANAGER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE, Permission.DELETE, Permission.INVITE, Permission.GRANT));
 
