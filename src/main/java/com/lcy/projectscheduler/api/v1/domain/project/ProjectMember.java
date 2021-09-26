@@ -54,7 +54,7 @@ public class ProjectMember extends BaseEntity implements Member {
     }
 
     @Override
-    public void auth(Permission needPermission) {
+    public void checkRegisteredAndPermission(Permission needPermission) {
         state.checkRegistered();
         projectPermission.checkPermission(needPermission);
     }

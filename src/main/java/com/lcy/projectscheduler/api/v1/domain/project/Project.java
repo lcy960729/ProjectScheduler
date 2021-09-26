@@ -40,7 +40,7 @@ public class Project extends BaseEntity {
         this.deadlineDate = deadlineDate;
     }
 
-    public static Project create(CreateProjectDTO dto) {
+    public static Project of(CreateProjectDTO dto) {
         return new Project(dto.getTitle(), dto.getSubject(), dto.getStartDate(), dto.getDeadlineDate());
     }
 
