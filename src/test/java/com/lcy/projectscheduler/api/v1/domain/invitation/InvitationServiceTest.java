@@ -7,6 +7,7 @@ import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
 import com.lcy.projectscheduler.exception.AlreadyProcessedInvitationException;
 import com.lcy.projectscheduler.exception.HasNotPermissionException;
+import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -78,8 +79,9 @@ class InvitationServiceTest {
             Throwable throwable = catchThrowable(() -> invitationService.invite(other.getId(), receiver.getId(), project.getId()));
 
             // then
-            assertThat(throwable).isInstanceOf(HasNotPermissionException.class);
+            assertThat(throwable).isInstanceOfAny(HasNotPermissionException.class, NotRegisteredMemberException.class);
         }
+
 
         @Test
         @DisplayName("이미 처리된 초대장에 대해 수락할때")
@@ -118,7 +120,7 @@ class InvitationServiceTest {
     @DisplayName("성공 테스트")
     public class SuccessTest {
         @Test
-        @DisplayName("초대 권한을 가진 사용자가 프로젝트에 새로운 사용자를 초대할때")
+        @DisplayName("초대 권한을 가진 사용자가 다른 사용자를 초대할때")
         @Transactional
         void invite() {
             // given

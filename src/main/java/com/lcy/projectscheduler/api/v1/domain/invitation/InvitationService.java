@@ -2,6 +2,7 @@ package com.lcy.projectscheduler.api.v1.domain.invitation;
 
 import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
+import com.lcy.projectscheduler.api.v1.domain.project.ProjectMemberService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
 import com.lcy.projectscheduler.api.v1.repository.InvitationRepository;
 import com.lcy.projectscheduler.api.v1.repository.ProjectMemberRepository;
@@ -26,13 +27,14 @@ public class InvitationService {
     private ProjectMemberRepository projectMemberRepository;
 
     @Autowired
+    private ProjectMemberService projectMemberService;
+
+    @Autowired
     private ApplicationEventPublisher publisher;
 
-    public Invitation invite(long senderId, long receiverId, long projectId)  {
-        ProjectMember projectMember = projectMemberRepository.findByUserIdAndProjectId(senderId, projectId)
-                .orElseThrow(NotRegisteredMemberException::new);
-
-        projectMember.auth(Permission.INVITE);
+    public Invitation invite(long senderId, long receiverId, long projectId) {
+        ProjectMember projectMember = projectMemberService.get(senderId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.INVITE);
 
         User sender = projectMember.getUser();
 
@@ -56,7 +58,7 @@ public class InvitationService {
 
         invitation.accept(publisher);
 
-        invitationRepository.save(invitation);
+        invitation = invitationRepository.save(invitation);
     }
 
     @Transactional
@@ -70,6 +72,6 @@ public class InvitationService {
 
         invitation.reject();
 
-        invitationRepository.save(invitation);
+        invitation = invitationRepository.save(invitation);
     }
 }
