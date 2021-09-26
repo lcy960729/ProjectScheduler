@@ -6,8 +6,8 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public enum WorkPermission implements MemberPermission {
-    WORKER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE, Permission.DELETE)),
-    COWORKER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE));
+    WORKER(EnumSet.of(Permission.READ, Permission.UPDATE, Permission.DELETE)),
+    COWORKER(EnumSet.of(Permission.READ, Permission.UPDATE));
 
     private final Set<Permission> permissions;
 
