@@ -6,8 +6,8 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public enum SessionPermission implements MemberPermission {
-    MEMBER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE)),
-    MANAGER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE, Permission.DELETE));
+    MEMBER(EnumSet.of(Permission.READ, Permission.UPDATE)),
+    MANAGER(EnumSet.of(Permission.CREATE, Permission.READ, Permission.UPDATE, Permission.DELETE, Permission.INVITE));
 
     private final Set<Permission> permissions;
 

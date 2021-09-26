@@ -31,7 +31,7 @@ public class SessionMember extends BaseEntity implements Member {
     private SessionPermission sessionPermission;
 
     @Override
-    public void auth(Permission needPermission) {
+    public void checkRegisteredAndPermission(Permission needPermission) {
         state.checkRegistered();
         sessionPermission.checkPermission(needPermission);
     }
@@ -66,4 +66,9 @@ public class SessionMember extends BaseEntity implements Member {
     public SessionPermission getSessionPermission() {
         return sessionPermission;
     }
+
+    public void left(){
+        state = MemberState.LEFT;
+    }
+
 }
