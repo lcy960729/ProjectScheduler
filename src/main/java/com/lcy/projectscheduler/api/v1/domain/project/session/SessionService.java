@@ -110,4 +110,21 @@ public class SessionService {
 
         return session;
     }
+
+    @Transactional
+    public Session setState(long userId, long projectId, long sessionId, SessionState state) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        SessionMember manager = sessionMemberService.get(userId, sessionId);
+        manager.checkRegisteredAndPermission(Permission.INVITE);
+
+        Session session = manager.getSession();
+
+        session.setState(state);
+
+        session = sessionRepository.save(session);
+
+        return session;
+    }
 }

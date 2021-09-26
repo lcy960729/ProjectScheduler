@@ -150,6 +150,23 @@ class SessionServiceTest {
 
             assertThat(isLeft).isTrue();
         }
+
+        @Test
+        @DisplayName("상태를 변경할때")
+        void setState() {
+            // given
+            Session tempSession = sessionService.create(project.getId(), createSessionDTO);
+
+            // when
+            SessionState inProgressState = SessionState.IN_PROGRESS;
+
+            sessionService.setState(user.getId(), project.getId(), tempSession.getId(), inProgressState);
+
+            // then
+            Session session = sessionService.get(user.getId(), project.getId(), tempSession.getId());
+
+            assertThat(session.getState()).isEqualTo(inProgressState);
+        }
     }
 
     @Nested
@@ -251,5 +268,6 @@ class SessionServiceTest {
             assertThat(throwable).isInstanceOf(HasNotPermissionException.class);
         }
     }
+
 
 }

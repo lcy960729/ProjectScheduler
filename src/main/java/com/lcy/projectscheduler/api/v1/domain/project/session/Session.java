@@ -45,6 +45,14 @@ public class Session extends BaseEntity {
         this.project = project;
     }
 
+    public SessionState getState() {
+        return state;
+    }
+
+    public void setState(SessionState state) {
+        this.state = state;
+    }
+
     public static Session of(Project project, CreateSessionDTO dto) {
         return new Session(dto.getTitle(),
                 SessionState.NOT_STARTED,
