@@ -2,7 +2,8 @@ package com.lcy.projectscheduler.api.v1.domain.project;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
-import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.project.UpdateProjectDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,10 +28,10 @@ public class Project extends BaseEntity {
     @Column
     private LocalDate deadlineDate;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<ProjectMember> projectMembers = new HashSet<>();
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Session> sessions = new HashSet<>();
 
     private Project(String title, String subject, LocalDate startDate, LocalDate deadlineDate) {
@@ -47,4 +48,12 @@ public class Project extends BaseEntity {
     public void addMember(ProjectMember projectMember) {
         projectMembers.add(projectMember);
     }
+
+    public void update(UpdateProjectDTO dto) {
+        this.title = dto.getTitle();
+        this.subject = dto.getSubject();
+        this.startDate = dto.getStartDate();
+        this.deadlineDate = dto.getDeadlineDate();
+    }
+
 }

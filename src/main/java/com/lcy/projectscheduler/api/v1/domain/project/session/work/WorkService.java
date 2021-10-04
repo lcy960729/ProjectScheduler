@@ -7,7 +7,7 @@ import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMember;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMemberService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.CreateWorkDTO;
 import com.lcy.projectscheduler.api.v1.repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

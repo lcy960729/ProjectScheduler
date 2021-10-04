@@ -6,6 +6,7 @@ import com.lcy.projectscheduler.api.v1.domain.member.Member;
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.exception.HasNotPermissionException;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

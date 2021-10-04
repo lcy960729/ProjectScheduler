@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.api.v1.dto;
+package com.lcy.projectscheduler.api.v1.dto.request;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

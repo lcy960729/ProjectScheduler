@@ -1,12 +1,8 @@
-package com.lcy.projectscheduler.api.v1.dto;
+package com.lcy.projectscheduler.api.v1.dto.request.project;
 
-import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class CreateProjectDTO {
@@ -16,7 +12,7 @@ public class CreateProjectDTO {
     private LocalDate startDate;
     private LocalDate deadlineDate;
 
-    private Long Manager;
+    private Long manager;
 
     @Builder
     public CreateProjectDTO(String title, String subject, LocalDate startDate, LocalDate deadlineDate, Long manager) {
@@ -24,6 +20,6 @@ public class CreateProjectDTO {
         this.subject = subject;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
-        Manager = manager;
+        this.manager = manager;
     }
 }

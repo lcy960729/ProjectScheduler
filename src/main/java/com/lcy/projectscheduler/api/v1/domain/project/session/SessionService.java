@@ -1,14 +1,13 @@
 package com.lcy.projectscheduler.api.v1.domain.project.session;
 
 import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
-import com.lcy.projectscheduler.api.v1.domain.member.permission.SessionPermission;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMemberService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.AddMembersToSessionDTO;
-import com.lcy.projectscheduler.api.v1.dto.CreateSessionDTO;
-import com.lcy.projectscheduler.api.v1.dto.UpdateSessionDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.AddMembersToSessionDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.session.UpdateSessionDTO;
 import com.lcy.projectscheduler.api.v1.repository.SessionRepository;
 import com.lcy.projectscheduler.exception.NotFoundEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 @Service

@@ -2,7 +2,7 @@ package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
-import com.lcy.projectscheduler.api.v1.dto.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.CreateWorkDTO;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

@@ -2,20 +2,17 @@ package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
 import com.lcy.projectscheduler.api.v1.domain.invitation.Invitation;
 import com.lcy.projectscheduler.api.v1.domain.invitation.InvitationService;
-import com.lcy.projectscheduler.api.v1.domain.member.permission.SessionPermission;
 import com.lcy.projectscheduler.api.v1.domain.member.permission.WorkPermission;
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectService;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
-import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMember;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
-import com.lcy.projectscheduler.api.v1.dto.CreateSessionDTO;
-import com.lcy.projectscheduler.api.v1.dto.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.CreateWorkDTO;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
-import com.lcy.projectscheduler.exception.HasNotPermissionException;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +27,6 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DisplayName("워크 서비스 테스트")
