@@ -1,6 +1,8 @@
 package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
+import com.lcy.projectscheduler.api.v1.domain.member.Member;
+import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
 import com.lcy.projectscheduler.api.v1.domain.member.permission.WorkPermission;
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
@@ -8,7 +10,7 @@ import com.lcy.projectscheduler.api.v1.domain.user.User;
 import javax.persistence.*;
 
 @Entity
-public class Worker extends BaseEntity {
+public class Worker extends BaseEntity implements Member {
     @ManyToOne
     @JoinColumn
     private Work work;
@@ -54,5 +56,15 @@ public class Worker extends BaseEntity {
 
     public static Worker registerCoworker(User user, Work work) {
         return new Worker(work, user, MemberState.JOINED, WorkPermission.COWORKER);
+    }
+
+    @Override
+    public void checkRegisteredAndPermission(Permission needPermission) {
+
+    }
+
+    @Override
+    public String getEmail() {
+        return getUser().getEmail();
     }
 }

@@ -7,7 +7,8 @@ import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMember;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMemberService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.request.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.work.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.work.UpdateWorkDTO;
 import com.lcy.projectscheduler.api.v1.repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,49 @@ public class WorkService {
         workerService.createWorker(user, work);
 
         return work;
+    }
+
+    public Work get(long userId, long projectId, long sessionId, long workId) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        SessionMember sessionMember = sessionMemberService.get(userId, sessionId);
+        sessionMember.checkRegisteredAndPermission(Permission.READ);
+
+        Worker worker = workerService.get(userId, workId);
+        worker.checkRegisteredAndPermission(Permission.READ);
+
+        return worker.getWork();
+    }
+
+    public Work update(long userId, long projectId, long sessionId, long workId, UpdateWorkDTO updateWorkDTO) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        SessionMember sessionMember = sessionMemberService.get(userId, sessionId);
+        sessionMember.checkRegisteredAndPermission(Permission.READ);
+
+        Worker worker = workerService.get(userId, workId);
+        worker.checkRegisteredAndPermission(Permission.UPDATE);
+
+        Work work = worker.getWork();
+        work.update(updateWorkDTO);
+
+        work = workRepository.save(work);
+
+        return work;
+    }
+
+    public void delete(long userId, long projectId, long sessionId, long workId) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        SessionMember sessionMember = sessionMemberService.get(userId, sessionId);
+        sessionMember.checkRegisteredAndPermission(Permission.READ);
+
+        Worker worker = workerService.get(userId, workId);
+        worker.checkRegisteredAndPermission(Permission.DELETE);
+
+        workRepository.deleteById(workId);
     }
 }

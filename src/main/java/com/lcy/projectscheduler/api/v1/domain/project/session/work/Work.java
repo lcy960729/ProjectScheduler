@@ -2,7 +2,8 @@ package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
-import com.lcy.projectscheduler.api.v1.dto.request.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.work.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.work.UpdateWorkDTO;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "work")
 @NoArgsConstructor
 public class Work extends BaseEntity {
     @Column
@@ -57,5 +58,41 @@ public class Work extends BaseEntity {
 
     public Set<Worker> getWorkers() {
         return workers;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getDeadlineDate() {
+        return deadlineDate;
+    }
+
+    public WorkState getState() {
+        return state;
+    }
+
+    public void update(UpdateWorkDTO updateWorkDTO) {
+        this.title = updateWorkDTO.getTitle();
+        this.content = updateWorkDTO.getContents();
+        this.priority = updateWorkDTO.getPriority();
+        this.startDate = updateWorkDTO.getStartDate();
+        this.deadlineDate = updateWorkDTO.getDeadlineDate();
     }
 }

@@ -1,7 +1,9 @@
 package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
+import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMember;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
 import com.lcy.projectscheduler.api.v1.repository.WorkerRepository;
+import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,10 @@ public class WorkerService {
         work.addCoworker(worker);
 
         return worker;
+    }
+
+    public Worker get(long userId, long workId) {
+        return workerRepository.findByUserIdAndWorkId(userId, workId)
+                .orElseThrow(NotRegisteredMemberException::new);
     }
 }

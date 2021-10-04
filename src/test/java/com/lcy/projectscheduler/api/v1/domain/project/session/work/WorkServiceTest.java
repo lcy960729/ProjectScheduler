@@ -11,7 +11,7 @@ import com.lcy.projectscheduler.api.v1.domain.project.session.SessionService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
-import com.lcy.projectscheduler.api.v1.dto.request.CreateWorkDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.work.CreateWorkDTO;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.junit.jupiter.api.BeforeEach;
