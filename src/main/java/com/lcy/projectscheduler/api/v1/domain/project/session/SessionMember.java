@@ -70,5 +70,8 @@ public class SessionMember extends BaseEntity implements Member {
     public void left(){
         state = MemberState.LEFT;
     }
-
+    @Override
+    public String getEmail() {
+        return user.getEmail();
+    }
 }

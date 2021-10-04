@@ -5,7 +5,7 @@ import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMemberService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.request.AddMembersToSessionDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.session.AddMembersToSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.UpdateSessionDTO;
 import com.lcy.projectscheduler.api.v1.repository.SessionRepository;
@@ -64,7 +64,9 @@ public class SessionService {
 
         Session session = sessionMember.getSession();
 
-        //TODO 업데이트 코드
+        session.update(updateSessionDTO);
+
+        session = sessionRepository.save(session);
 
         return session;
     }
@@ -124,5 +126,15 @@ public class SessionService {
         session = sessionRepository.save(session);
 
         return session;
+    }
+
+    public void delete(long userId, long projectId, long sessionId) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        SessionMember manager = sessionMemberService.get(userId, sessionId);
+        manager.checkRegisteredAndPermission(Permission.DELETE);
+
+        sessionRepository.deleteById(sessionId);
     }
 }
