@@ -1,7 +1,9 @@
 package com.lcy.projectscheduler.api.v1.domain.project;
 
+import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.project.UpdateProjectDTO;
 import com.lcy.projectscheduler.api.v1.repository.ProjectRepository;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
 import com.lcy.projectscheduler.exception.NotFoundEntityException;
@@ -37,5 +39,25 @@ public class ProjectService {
     public Project get(long userId, long projectId) {
         ProjectMember projectMember = projectMemberService.get(userId, projectId);
         return projectMember.getProject();
+    }
+
+    public Project update(long userId, long projectId, UpdateProjectDTO updateProjectDTO) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+
+        projectMember.checkRegisteredAndPermission(Permission.UPDATE);
+
+        Project project = projectMember.getProject();
+        project.update(updateProjectDTO);
+
+        project = projectRepository.save(project);
+
+        return project;
+    }
+
+    public void delete(long userId, long projectId) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.DELETE);
+
+        projectRepository.deleteById(projectId);
     }
 }

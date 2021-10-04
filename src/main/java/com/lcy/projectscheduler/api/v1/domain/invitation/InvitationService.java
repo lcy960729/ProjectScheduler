@@ -24,9 +24,6 @@ public class InvitationService {
     private UserRepository userRepository;
 
     @Autowired
-    private ProjectMemberRepository projectMemberRepository;
-
-    @Autowired
     private ProjectMemberService projectMemberService;
 
     @Autowired
@@ -48,7 +45,7 @@ public class InvitationService {
     }
 
     @Transactional
-    public void accept(long receiverId, long invitationId) {
+    public Invitation accept(long receiverId, long invitationId) {
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(NotFoundEntityException::new);
 
@@ -59,10 +56,12 @@ public class InvitationService {
         invitation.accept(publisher);
 
         invitation = invitationRepository.save(invitation);
+
+        return invitation;
     }
 
     @Transactional
-    public void reject(long receiverId, long invitationId) {
+    public Invitation reject(long receiverId, long invitationId) {
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(NotFoundEntityException::new);
 
@@ -73,5 +72,6 @@ public class InvitationService {
         invitation.reject();
 
         invitation = invitationRepository.save(invitation);
+        return invitation;
     }
 }
