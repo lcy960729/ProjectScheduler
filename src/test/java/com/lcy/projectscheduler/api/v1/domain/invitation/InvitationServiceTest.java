@@ -3,7 +3,7 @@ package com.lcy.projectscheduler.api.v1.domain.invitation;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectService;
 import com.lcy.projectscheduler.api.v1.domain.user.User;
-import com.lcy.projectscheduler.api.v1.dto.CreateProjectDTO;
+import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.repository.UserRepository;
 import com.lcy.projectscheduler.exception.AlreadyProcessedInvitationException;
 import com.lcy.projectscheduler.exception.HasNotPermissionException;
