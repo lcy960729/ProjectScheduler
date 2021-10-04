@@ -60,6 +60,11 @@ public class ProjectMember extends BaseEntity implements Member {
         projectPermission.checkPermission(needPermission);
     }
 
+    @Override
+    public String getEmail() {
+        return user.getEmail();
+    }
+
     public MemberState getState() {
         return state;
     }

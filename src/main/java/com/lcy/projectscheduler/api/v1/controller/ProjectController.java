@@ -8,6 +8,7 @@ import com.lcy.projectscheduler.api.v1.dto.request.invitation.SendInvitationDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.project.UpdateProjectDTO;
 import com.lcy.projectscheduler.api.v1.dto.response.project.ProjectModel;
+import com.lcy.projectscheduler.api.v1.dto.response.project.ProjectModelAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;

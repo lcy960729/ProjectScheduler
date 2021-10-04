@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.api.v1.dto.request;
+package com.lcy.projectscheduler.api.v1.dto.request.work;
 
 import lombok.Builder;
 import lombok.Data;
