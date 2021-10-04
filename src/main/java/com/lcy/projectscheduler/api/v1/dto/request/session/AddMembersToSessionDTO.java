@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.api.v1.dto.request;
+package com.lcy.projectscheduler.api.v1.dto.request.session;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +8,7 @@ import java.util.List;
 
 @Data
 public class AddMembersToSessionDTO {
-    List<Long> users = new ArrayList<>();
-
-    public List<Long> getUsers() {
-        return users;
-    }
+    private List<Long> users = new ArrayList<>();
 
     public AddMembersToSessionDTO(long user) {
         users.add(user);
