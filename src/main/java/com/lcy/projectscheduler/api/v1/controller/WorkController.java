@@ -11,13 +11,18 @@ import com.lcy.projectscheduler.api.v1.dto.response.work.WorkModel;
 import com.lcy.projectscheduler.api.v1.dto.response.work.WorkModelAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping(path = "/projects/{projectId}/sessions/{sessionId}/works")
+@RequestMapping(path = "/projects/{projectId}/sessions/{sessionId}/works",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaTypes.HAL_JSON_VALUE)
+
 public class WorkController {
 
     @Autowired

@@ -53,7 +53,6 @@ public class WorkService {
 
         Worker worker = workerService.get(userId, workId);
         worker.checkRegisteredAndPermission(Permission.READ);
-
         return worker.getWork();
     }
 

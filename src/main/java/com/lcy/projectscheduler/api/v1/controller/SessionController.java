@@ -9,13 +9,17 @@ import com.lcy.projectscheduler.api.v1.dto.response.session.SessionModel;
 import com.lcy.projectscheduler.api.v1.dto.response.session.SessionModelAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping(path = "/projects/{projectId}/sessions")
+@RequestMapping(path = "/projects/{projectId}/sessions",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaTypes.HAL_JSON_VALUE)
 public class SessionController {
 
     @Autowired
