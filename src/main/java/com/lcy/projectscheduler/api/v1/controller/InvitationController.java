@@ -29,14 +29,16 @@ public class InvitationController {
     private InvitationService invitationService;
 
     @PostMapping(path = "/{id}/accept")
-    public ResponseEntity<Invitation> accept(@PathVariable("id") Long invitationId) {
-        Invitation invitation = invitationService.accept(2L, invitationId);
+    public ResponseEntity<Invitation> accept(Long userId,
+                                             @PathVariable("id") Long invitationId) {
+        Invitation invitation = invitationService.accept(userId, invitationId);
         return ResponseEntity.ok(invitation);
     }
 
     @PostMapping(path = "/{id}/reject")
-    public ResponseEntity<Invitation> reject(@PathVariable("id") Long invitationId) {
-        Invitation invitation = invitationService.reject(2L, invitationId);
+    public ResponseEntity<Invitation> reject(Long userId,
+                                             @PathVariable("id") Long invitationId) {
+        Invitation invitation = invitationService.reject(userId, invitationId);
         return ResponseEntity.ok(invitation);
     }
 }

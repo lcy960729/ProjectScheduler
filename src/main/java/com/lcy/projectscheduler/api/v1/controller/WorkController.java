@@ -32,11 +32,12 @@ public class WorkController {
     private WorkModelAssembler workModelAssembler;
 
     @PostMapping
-    public ResponseEntity<WorkModel> create(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<WorkModel> create(Long userId,
+                                            @PathVariable("projectId") Long projectId,
                                             @PathVariable("sessionId") Long sessionId,
                                             @RequestBody CreateWorkDTO createWorkDTO) {
 
-        Work work = workService.create(0L, projectId, sessionId, createWorkDTO);
+        Work work = workService.create(userId, projectId, sessionId, createWorkDTO);
 
         WorkModel workModel = workModelAssembler.toModel(work);
 
@@ -48,11 +49,12 @@ public class WorkController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<WorkModel> get(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<WorkModel> get(Long userId,
+                                         @PathVariable("projectId") Long projectId,
                                          @PathVariable("sessionId") Long sessionId,
                                          @PathVariable("id") Long workId) {
 
-        Work work = workService.get(0L, projectId, sessionId, workId);
+        Work work = workService.get(userId, projectId, sessionId, workId);
 
         WorkModel workModel = workModelAssembler.toModel(work);
 
@@ -60,12 +62,13 @@ public class WorkController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<WorkModel> update(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<WorkModel> update(Long userId,
+                                            @PathVariable("projectId") Long projectId,
                                             @PathVariable("sessionId") Long sessionId,
                                             @PathVariable("id") Long workId,
                                             @RequestBody UpdateWorkDTO updateWorkDTO) {
 
-        Work work = workService.update(0L, projectId, sessionId, workId, updateWorkDTO);
+        Work work = workService.update(userId, projectId, sessionId, workId, updateWorkDTO);
 
         WorkModel workModel = workModelAssembler.toModel(work);
 
@@ -73,11 +76,12 @@ public class WorkController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<SessionModel> delete(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<SessionModel> delete(Long userId,
+                                               @PathVariable("projectId") Long projectId,
                                                @PathVariable("sessionId") Long sessionId,
                                                @PathVariable("id") Long workId) {
 
-        workService.delete(0L, projectId, sessionId, workId);
+        workService.delete(userId, projectId, sessionId, workId);
 
         return ResponseEntity.noContent().build();
     }

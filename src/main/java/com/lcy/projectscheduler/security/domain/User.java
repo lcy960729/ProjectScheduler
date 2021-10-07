@@ -1,16 +1,12 @@
-package com.lcy.projectscheduler.api.v1.domain.user;
+package com.lcy.projectscheduler.security.domain;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
-import com.lcy.projectscheduler.api.v1.domain.invitation.Invitation;
-import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
+import com.lcy.projectscheduler.api.v1.dto.request.login.SignUpDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,13 +15,13 @@ public class User extends BaseEntity {
     private String email;
     private String pw;
 
-    @OneToMany(mappedBy = "user")
-    private List<ProjectMember> projectMembers = new ArrayList<>();
-
     @Builder
     public User(String email, String pw) {
         this.email = email;
         this.pw = pw;
     }
 
+    public static User of(SignUpDTO signUpDTO){
+        return new User(signUpDTO.getEmail(), signUpDTO.getPw());
+    }
 }

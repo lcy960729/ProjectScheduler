@@ -29,10 +29,11 @@ public class SessionController {
     private SessionModelAssembler sessionModelAssembler;
 
     @PostMapping
-    public ResponseEntity<SessionModel> create(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<SessionModel> create(Long userId,
+                                               @PathVariable("projectId") Long projectId,
                                                @RequestBody CreateSessionDTO createSessionDTO) {
 
-        Session session = sessionService.create(projectId, createSessionDTO);
+        Session session = sessionService.create(userId, projectId, createSessionDTO);
 
         SessionModel sessionModel = sessionModelAssembler.toModel(session);
 
@@ -44,9 +45,11 @@ public class SessionController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<SessionModel> get(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<SessionModel> get(Long userId,
+                                            @PathVariable("projectId") Long projectId,
                                             @PathVariable("id") Long sessionId) {
-        Session session = sessionService.get(0L, projectId, sessionId);
+
+        Session session = sessionService.get(userId, projectId, sessionId);
 
         SessionModel sessionModel = sessionModelAssembler.toModel(session);
 
@@ -54,11 +57,12 @@ public class SessionController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<SessionModel> update(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<SessionModel> update(Long userId,
+                                               @PathVariable("projectId") Long projectId,
                                                @PathVariable("id") Long sessionId,
                                                @RequestBody UpdateSessionDTO updateSessionDTO) {
 
-        Session session = sessionService.update(0L, projectId, sessionId, updateSessionDTO);
+        Session session = sessionService.update(userId, projectId, sessionId, updateSessionDTO);
 
         SessionModel sessionModel = sessionModelAssembler.toModel(session);
 
@@ -66,20 +70,22 @@ public class SessionController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<SessionModel> delete(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<SessionModel> delete(Long userId,
+                                               @PathVariable("projectId") Long projectId,
                                                @PathVariable("id") Long sessionId) {
 
-        sessionService.delete(0L, projectId, sessionId);
+        sessionService.delete(userId, projectId, sessionId);
 
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{id}/addUsers")
-    public ResponseEntity<SessionModel> addUsers(@PathVariable("projectId") Long projectId,
+    public ResponseEntity<SessionModel> addUsers(Long userId,
+                                                 @PathVariable("projectId") Long projectId,
                                                  @PathVariable("id") Long sessionId,
                                                  @RequestBody AddMembersToSessionDTO addMembersToSessionDTO) {
 
-        Session session = sessionService.addMembers(0L, projectId, sessionId, addMembersToSessionDTO);
+        Session session = sessionService.addMembers(userId, projectId, sessionId, addMembersToSessionDTO);
 
         SessionModel sessionModel = sessionModelAssembler.toModel(session);
 

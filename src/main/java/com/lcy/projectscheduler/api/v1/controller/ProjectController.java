@@ -34,8 +34,10 @@ public class ProjectController {
     private ProjectModelAssembler projectModelAssembler;
 
     @PostMapping
-    public ResponseEntity<ProjectModel> create(@RequestBody CreateProjectDTO createProjectDTO) {
-        Project project = projectService.create(createProjectDTO);
+    public ResponseEntity<ProjectModel> create(Long userId,
+                                               @RequestBody CreateProjectDTO createProjectDTO) {
+
+        Project project = projectService.create(userId, createProjectDTO);
 
         ProjectModel projectModel = projectModelAssembler.toModel(project);
 
@@ -47,8 +49,9 @@ public class ProjectController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ProjectModel> get(@PathVariable("id") Long projectId) {
-        Project project = projectService.get(0L, projectId);
+    public ResponseEntity<ProjectModel> get(Long userId,
+                                            @PathVariable("id") Long projectId) {
+        Project project = projectService.get(userId, projectId);
 
         ProjectModel projectModel = projectModelAssembler.toModel(project);
 
@@ -56,8 +59,10 @@ public class ProjectController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ProjectModel> update(@PathVariable("id") Long projectId, @RequestBody UpdateProjectDTO updateProjectDTO) {
-        Project project = projectService.update(0L, projectId, updateProjectDTO);
+    public ResponseEntity<ProjectModel> update(Long userId,
+                                               @PathVariable("id") Long projectId,
+                                               @RequestBody UpdateProjectDTO updateProjectDTO) {
+        Project project = projectService.update(userId, projectId, updateProjectDTO);
 
         ProjectModel projectModel = projectModelAssembler.toModel(project);
 
@@ -65,14 +70,17 @@ public class ProjectController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<ProjectModel> delete(@PathVariable("id") Long projectId) {
-        projectService.delete(0L, projectId);
+    public ResponseEntity<ProjectModel> delete(Long userId,
+                                               @PathVariable("id") Long projectId) {
+        projectService.delete(userId, projectId);
 
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping(path = "/{id}/invite")
-    public ResponseEntity<Invitation> invite(@PathVariable("id") Long projectId, @RequestBody SendInvitationDTO sendInvitationDTO) {
+    public ResponseEntity<Invitation> invite(Long userId,
+                                             @PathVariable("id") Long projectId,
+                                             @RequestBody SendInvitationDTO sendInvitationDTO) {
         Invitation invitation = invitationService.invite(0L, sendInvitationDTO.getReceiverId(), projectId);
         return ResponseEntity.ok(invitation);
     }

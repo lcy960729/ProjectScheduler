@@ -5,7 +5,7 @@ import com.lcy.projectscheduler.api.v1.domain.member.Member;
 import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
 import com.lcy.projectscheduler.api.v1.domain.member.permission.WorkPermission;
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 
 import javax.persistence.*;
 

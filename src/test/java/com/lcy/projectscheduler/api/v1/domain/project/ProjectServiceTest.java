@@ -2,9 +2,9 @@ package com.lcy.projectscheduler.api.v1.domain.project;
 
 import com.lcy.projectscheduler.api.v1.domain.member.permission.ProjectPermission;
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
-import com.lcy.projectscheduler.api.v1.repository.UserRepository;
+import com.lcy.projectscheduler.security.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

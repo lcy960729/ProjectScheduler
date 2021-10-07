@@ -1,7 +1,7 @@
-package com.lcy.projectscheduler.api.v1.dto.response;
+package com.lcy.projectscheduler.security.dto;
 
 import com.lcy.projectscheduler.api.v1.domain.member.Member;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -17,4 +17,7 @@ public class UserModel extends RepresentationModel<UserModel> {
         return new UserModel(member.getEmail());
     }
 
+    public static UserModel of(User user) {
+        return new UserModel(user.getEmail());
+    }
 }

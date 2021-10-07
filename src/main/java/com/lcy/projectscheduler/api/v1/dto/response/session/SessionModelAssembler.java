@@ -1,11 +1,8 @@
 package com.lcy.projectscheduler.api.v1.dto.response.session;
 
-import com.lcy.projectscheduler.api.v1.controller.ProjectController;
 import com.lcy.projectscheduler.api.v1.controller.SessionController;
 import com.lcy.projectscheduler.api.v1.controller.WorkController;
-import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
-import com.lcy.projectscheduler.api.v1.dto.response.project.ProjectModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +23,10 @@ public class SessionModelAssembler extends RepresentationModelAssemblerSupport<S
         long sessionId = sessionModel.getId();
         long projectId = session.getProject().getId();
 
-        sessionModel.add(linkTo(methodOn(SessionController.class).get(projectId, sessionId)).withSelfRel());
-        sessionModel.add(linkTo(methodOn(SessionController.class).update(projectId, sessionId, null)).withRel("update"));
-        sessionModel.add(linkTo(methodOn(SessionController.class).delete(projectId, sessionId)).withRel("delete"));
-        sessionModel.add(linkTo(methodOn(WorkController.class).create(projectId, sessionId, null)).withRel("create_work"));
+        sessionModel.add(linkTo(methodOn(SessionController.class).get(null, projectId, sessionId)).withSelfRel());
+        sessionModel.add(linkTo(methodOn(SessionController.class).update(null, projectId, sessionId, null)).withRel("update"));
+        sessionModel.add(linkTo(methodOn(SessionController.class).delete(null, projectId, sessionId)).withRel("delete"));
+        sessionModel.add(linkTo(methodOn(WorkController.class).create(null, projectId, sessionId, null)).withRel("create_work"));
 
         return sessionModel;
     }

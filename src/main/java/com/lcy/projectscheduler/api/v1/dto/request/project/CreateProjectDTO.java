@@ -12,14 +12,11 @@ public class CreateProjectDTO {
     private LocalDate startDate;
     private LocalDate deadlineDate;
 
-    private Long manager;
-
     @Builder
-    public CreateProjectDTO(String title, String subject, LocalDate startDate, LocalDate deadlineDate, Long manager) {
+    public CreateProjectDTO(String title, String subject, LocalDate startDate, LocalDate deadlineDate) {
         this.title = title;
         this.subject = subject;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
-        this.manager = manager;
     }
 }

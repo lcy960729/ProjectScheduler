@@ -2,8 +2,9 @@ package com.lcy.projectscheduler.api.v1.dto.response.project;
 
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
-import com.lcy.projectscheduler.api.v1.dto.response.UserModel;
+import com.lcy.projectscheduler.security.dto.UserModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ProjectModel extends RepresentationModel<ProjectModel> {
     private Long id;

@@ -1,20 +1,19 @@
 package com.lcy.projectscheduler.api.v1.dto.response.session;
 
-import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMember;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionState;
-import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
-import com.lcy.projectscheduler.api.v1.dto.response.UserModel;
+import com.lcy.projectscheduler.security.dto.UserModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class SessionModel extends RepresentationModel<SessionModel> {
     private Long id;

@@ -1,7 +1,7 @@
 package com.lcy.projectscheduler.api.v1.domain.invitation;
 
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 

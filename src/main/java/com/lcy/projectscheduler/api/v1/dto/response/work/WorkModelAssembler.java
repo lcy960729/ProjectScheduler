@@ -2,7 +2,6 @@ package com.lcy.projectscheduler.api.v1.dto.response.work;
 
 import com.lcy.projectscheduler.api.v1.controller.SessionController;
 import com.lcy.projectscheduler.api.v1.controller.WorkController;
-import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.work.Work;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
@@ -25,9 +24,9 @@ public class WorkModelAssembler extends RepresentationModelAssemblerSupport<Work
         long sessionId = work.getSession().getId();
         long projectId = work.getSession().getProject().getId();
 
-        workModel.add(linkTo(methodOn(WorkController.class).get(projectId, sessionId, workId)).withSelfRel());
-        workModel.add(linkTo(methodOn(WorkController.class).update(projectId, sessionId, workId, null)).withRel("update"));
-        workModel.add(linkTo(methodOn(WorkController.class).delete(projectId, sessionId, workId)).withRel("delete"));
+        workModel.add(linkTo(methodOn(WorkController.class).get(null,projectId, sessionId, workId)).withSelfRel());
+        workModel.add(linkTo(methodOn(WorkController.class).update(null,projectId, sessionId, workId, null)).withRel("update"));
+        workModel.add(linkTo(methodOn(WorkController.class).delete(null,projectId, sessionId, workId)).withRel("delete"));
 
         return workModel;
     }

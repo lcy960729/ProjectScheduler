@@ -14,14 +14,11 @@ public class CreateSessionDTO {
     private LocalDateTime startDate;
     private LocalDateTime deadlineDate;
 
-    private Long Manager;
-
     @Builder
-    public CreateSessionDTO(String title, String subject, LocalDateTime startDate, LocalDateTime deadlineDate, Long manager) {
+    public CreateSessionDTO(String title, String subject, LocalDateTime startDate, LocalDateTime deadlineDate) {
         this.title = title;
         this.subject = subject;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
-        Manager = manager;
     }
 }

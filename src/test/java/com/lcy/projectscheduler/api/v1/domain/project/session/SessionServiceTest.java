@@ -6,11 +6,11 @@ import com.lcy.projectscheduler.api.v1.domain.member.permission.SessionPermissio
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectService;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.session.AddMembersToSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
-import com.lcy.projectscheduler.api.v1.repository.UserRepository;
+import com.lcy.projectscheduler.security.repository.UserRepository;
 import com.lcy.projectscheduler.exception.HasNotPermissionException;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.junit.jupiter.api.BeforeEach;

@@ -6,7 +6,7 @@ import com.lcy.projectscheduler.api.v1.domain.project.ProjectMemberService;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMember;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionMemberService;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.work.CreateWorkDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.work.UpdateWorkDTO;
 import com.lcy.projectscheduler.api.v1.repository.WorkRepository;

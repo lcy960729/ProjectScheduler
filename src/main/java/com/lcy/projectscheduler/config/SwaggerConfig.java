@@ -2,6 +2,7 @@ package com.lcy.projectscheduler.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,7 +18,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lcy.projectscheduler.api.v1.controller"))
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());

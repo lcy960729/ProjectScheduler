@@ -4,7 +4,7 @@ import com.lcy.projectscheduler.api.v1.domain.member.permission.Permission;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMember;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectMemberService;
-import com.lcy.projectscheduler.api.v1.domain.user.User;
+import com.lcy.projectscheduler.security.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.session.AddMembersToSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.UpdateSessionDTO;
@@ -29,9 +29,7 @@ public class SessionService {
     private ProjectMemberService projectMemberService;
 
     @Transactional
-    public Session create(long projectId, CreateSessionDTO createSessionDTO) {
-        final long userId = createSessionDTO.getManager();
-
+    public Session create(long userId, long projectId, CreateSessionDTO createSessionDTO) {
         ProjectMember projectMember = projectMemberService.get(userId, projectId);
         projectMember.checkRegisteredAndPermission(Permission.CREATE);
 
