@@ -13,6 +13,8 @@ import com.lcy.projectscheduler.api.v1.repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkService {
 
@@ -53,7 +55,20 @@ public class WorkService {
 
         Worker worker = workerService.get(userId, workId);
         worker.checkRegisteredAndPermission(Permission.READ);
+
         return worker.getWork();
+    }
+
+    public List<Work> getAll(long userId, long projectId, long sessionId) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        SessionMember sessionMember = sessionMemberService.get(userId, sessionId);
+        sessionMember.checkRegisteredAndPermission(Permission.READ);
+
+        List<Work> works = workRepository.findAllBySessionId(sessionId);
+
+        return works;
     }
 
     public Work update(long userId, long projectId, long sessionId, long workId, UpdateWorkDTO updateWorkDTO) {
