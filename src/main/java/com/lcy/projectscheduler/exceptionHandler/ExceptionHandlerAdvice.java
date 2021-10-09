@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ExceptionHandlerController {
+public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ExceptionModel> businessExceptionHandler(BusinessException e) {

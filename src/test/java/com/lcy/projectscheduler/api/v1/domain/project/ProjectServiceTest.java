@@ -2,9 +2,9 @@ package com.lcy.projectscheduler.api.v1.domain.project;
 
 import com.lcy.projectscheduler.api.v1.domain.member.permission.ProjectPermission;
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
-import com.lcy.projectscheduler.security.repository.UserRepository;
+import com.lcy.projectscheduler.authorization.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -42,17 +42,16 @@ class ProjectServiceTest {
     @BeforeEach
     void setUp() {
         user = userRepository.save(user);
-        createProjectDTO.setManager(user.getId());
     }
 
     @Nested
     @DisplayName("성공 테스트")
-    public class Success{
+    public class Success {
         @Test
         @DisplayName("프로젝트를 생성할때")
         void create() {
             // when
-            Project project = projectService.create(createProjectDTO);
+            Project project = projectService.create(user.getId(), createProjectDTO);
 
             // then
             assertThat(project).isNotNull();

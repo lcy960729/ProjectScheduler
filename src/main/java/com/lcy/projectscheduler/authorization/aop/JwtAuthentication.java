@@ -1,10 +1,10 @@
-package com.lcy.projectscheduler.security.aop;
+package com.lcy.projectscheduler.authorization.aop;
 
 
 import com.lcy.projectscheduler.exception.InvalidTokenException;
 import com.lcy.projectscheduler.exceptionHandler.dto.ExceptionModel;
-import com.lcy.projectscheduler.security.JwtTokenProvider;
-import com.lcy.projectscheduler.security.SecurityHeaders;
+import com.lcy.projectscheduler.authorization.JwtTokenProvider;
+import com.lcy.projectscheduler.authorization.SecurityHeaders;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

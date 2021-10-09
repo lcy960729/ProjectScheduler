@@ -1,6 +1,6 @@
 package com.lcy.projectscheduler.api.v1.domain.project.session.work;
 
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import com.lcy.projectscheduler.api.v1.repository.WorkerRepository;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.springframework.beans.factory.annotation.Autowired;

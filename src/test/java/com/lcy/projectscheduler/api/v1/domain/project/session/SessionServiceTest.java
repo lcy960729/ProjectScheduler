@@ -6,11 +6,11 @@ import com.lcy.projectscheduler.api.v1.domain.member.permission.SessionPermissio
 import com.lcy.projectscheduler.api.v1.domain.member.state.MemberState;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectService;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.session.AddMembersToSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
-import com.lcy.projectscheduler.security.repository.UserRepository;
+import com.lcy.projectscheduler.authorization.repository.UserRepository;
 import com.lcy.projectscheduler.exception.HasNotPermissionException;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,10 +75,7 @@ class SessionServiceTest {
         user = userRepository.save(user);
         other = userRepository.save(other);
 
-        createProjectDTO.setManager(user.getId());
-        createSessionDTO.setManager(user.getId());
-
-        project = projectService.create(createProjectDTO);
+        project = projectService.create(user.getId(), createProjectDTO);
     }
 
     @Nested
@@ -90,7 +87,7 @@ class SessionServiceTest {
             // given
 
             // when
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
 
             // then
             assertThat(session).isNotNull();
@@ -113,7 +110,7 @@ class SessionServiceTest {
             Invitation invitation = invitationService.invite(user.getId(), other.getId(), project.getId());
             invitationService.accept(other.getId(), invitation.getId());
 
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
 
             // when
             sessionService.addMembers(user.getId(), project.getId(), session.getId(), new AddMembersToSessionDTO(other.getId()));
@@ -135,7 +132,7 @@ class SessionServiceTest {
             Invitation invitation = invitationService.invite(user.getId(), other.getId(), project.getId());
             invitationService.accept(other.getId(), invitation.getId());
 
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
             sessionService.addMembers(user.getId(), project.getId(), session.getId(), new AddMembersToSessionDTO(other.getId()));
 
             Set<SessionMember> sessionMembers = session.getSessionMembers();
@@ -155,7 +152,7 @@ class SessionServiceTest {
         @DisplayName("상태를 변경할때")
         void setState() {
             // given
-            Session tempSession = sessionService.create(project.getId(), createSessionDTO);
+            Session tempSession = sessionService.create(user.getId(), project.getId(), createSessionDTO);
 
             // when
             SessionState inProgressState = SessionState.IN_PROGRESS;
@@ -176,10 +173,9 @@ class SessionServiceTest {
         @DisplayName("프로젝트에 가입되지 않은 사용자가 세션을 생성할때")
         void create_NotJoinedUser() {
             // given
-            createSessionDTO.setManager(other.getId());
 
             // when
-            Throwable throwable = catchThrowable(() -> sessionService.create(project.getId(), createSessionDTO));
+            Throwable throwable = catchThrowable(() -> sessionService.create(other.getId(), project.getId(), createSessionDTO));
 
             // then
             assertThat(throwable).isInstanceOf(NotRegisteredMemberException.class);
@@ -191,10 +187,9 @@ class SessionServiceTest {
             // given
             Invitation invitation = invitationService.invite(user.getId(), other.getId(), project.getId());
             invitationService.accept(other.getId(), invitation.getId());
-            createSessionDTO.setManager(other.getId());
 
             // when
-            Throwable throwable = catchThrowable(() -> sessionService.create(project.getId(), createSessionDTO));
+            Throwable throwable = catchThrowable(() -> sessionService.create(other.getId(), project.getId(), createSessionDTO));
 
             // then
             assertThat(throwable).isInstanceOf(HasNotPermissionException.class);
@@ -205,7 +200,7 @@ class SessionServiceTest {
         @Transactional
         void addMember_NotJoinedUserInProject() {
             // given
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
 
             // when
             Throwable throwable = catchThrowable(() -> sessionService.addMembers(user.getId(), project.getId(), session.getId(), new AddMembersToSessionDTO(other.getId())));
@@ -222,7 +217,7 @@ class SessionServiceTest {
             Invitation invitation = invitationService.invite(user.getId(), other.getId(), project.getId());
             invitationService.accept(other.getId(), invitation.getId());
 
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
             sessionService.addMembers(user.getId(), project.getId(), session.getId(), new AddMembersToSessionDTO(other.getId()));
 
             // when
@@ -240,7 +235,7 @@ class SessionServiceTest {
             Invitation invitation = invitationService.invite(user.getId(), other.getId(), project.getId());
             invitationService.accept(other.getId(), invitation.getId());
 
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
 //            sessionService.addMembers(user.getId(), project.getId(), session.getId(), new AddMembersToSessionDTO(other.getId()));
 
             // when
@@ -258,7 +253,7 @@ class SessionServiceTest {
             Invitation invitation = invitationService.invite(user.getId(), other.getId(), project.getId());
             invitationService.accept(other.getId(), invitation.getId());
 
-            Session session = sessionService.create(project.getId(), createSessionDTO);
+            Session session = sessionService.create(user.getId(), project.getId(), createSessionDTO);
             sessionService.addMembers(user.getId(), project.getId(), session.getId(), new AddMembersToSessionDTO(other.getId()));
 
             // when
@@ -268,6 +263,4 @@ class SessionServiceTest {
             assertThat(throwable).isInstanceOf(HasNotPermissionException.class);
         }
     }
-
-
 }

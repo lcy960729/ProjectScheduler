@@ -2,10 +2,7 @@ package com.lcy.projectscheduler.exceptionHandler.dto;
 
 import com.lcy.projectscheduler.exception.AuthenticationException;
 import com.lcy.projectscheduler.exception.BusinessException;
-import com.sun.org.apache.xml.internal.security.algorithms.JCEMapper;
 import lombok.Data;
-
-import java.util.Collections;
 
 @Data
 public class ExceptionModel {

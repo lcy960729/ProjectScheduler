@@ -1,15 +1,11 @@
-package com.lcy.projectscheduler.security;
+package com.lcy.projectscheduler.authorization;
 
-import com.lcy.projectscheduler.exception.AuthenticationException;
+import com.lcy.projectscheduler.exception.ExpiredTokenException;
 import com.lcy.projectscheduler.exception.InvalidTokenException;
-import com.lcy.projectscheduler.exceptionHandler.dto.ExceptionModel;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.security.Key;
 import java.util.Date;
@@ -41,19 +37,18 @@ public class JwtTokenProvider {
                     .setSigningKey(secretKey)
                     .build();
 
-
             Jws<Claims> claims = jwtParser.parseClaimsJws(token);
 
             Date expiredTime = claims.getBody().getExpiration();
 
-            if (!expiredTime.before(new Date())) {
-                return Long.parseLong(claims.getBody().getSubject());
+            if (expiredTime.before(new Date())) {
+                throw new ExpiredTokenException();
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            return Long.parseLong(claims.getBody().getSubject());
 
-        throw new InvalidTokenException();
+        } catch (Exception e) {
+            throw new InvalidTokenException();
+        }
     }
 }

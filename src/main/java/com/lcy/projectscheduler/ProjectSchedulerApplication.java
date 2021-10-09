@@ -9,7 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 @EnableAspectJAutoProxy
 public class ProjectSchedulerApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(ProjectSchedulerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ProjectSchedulerApplication.class, args);
+
+    }
 }

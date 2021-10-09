@@ -1,10 +1,8 @@
 package com.lcy.projectscheduler.api.v1.controller;
 
-import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.work.Work;
 import com.lcy.projectscheduler.api.v1.domain.project.session.work.WorkService;
 import com.lcy.projectscheduler.api.v1.dto.request.work.CreateWorkDTO;
-import com.lcy.projectscheduler.api.v1.dto.request.session.UpdateSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.work.UpdateWorkDTO;
 import com.lcy.projectscheduler.api.v1.dto.response.session.SessionModel;
 import com.lcy.projectscheduler.api.v1.dto.response.work.WorkModel;

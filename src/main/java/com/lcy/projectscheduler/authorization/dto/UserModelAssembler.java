@@ -1,7 +1,7 @@
-package com.lcy.projectscheduler.security.dto;
+package com.lcy.projectscheduler.authorization.dto;
 
-import com.lcy.projectscheduler.security.controller.UserController;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.controller.UserController;
+import com.lcy.projectscheduler.authorization.domain.User;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 

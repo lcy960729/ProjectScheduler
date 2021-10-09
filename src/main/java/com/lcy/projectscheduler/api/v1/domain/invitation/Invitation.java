@@ -2,7 +2,7 @@ package com.lcy.projectscheduler.api.v1.domain.invitation;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -24,6 +24,7 @@ public class Invitation extends BaseEntity {
     private Project project;
 
     @Column
+    @Enumerated(value = EnumType.STRING)
     private InvitationState state;
 
     public Invitation(User sender, User receiver, Project project, InvitationState state) {

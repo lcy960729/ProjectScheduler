@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.security;
+package com.lcy.projectscheduler.authorization;
 
 public enum SecurityHeaders {
     AUTHORIZATION("Authorization");

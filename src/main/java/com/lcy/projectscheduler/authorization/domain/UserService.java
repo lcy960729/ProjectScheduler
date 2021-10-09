@@ -1,12 +1,12 @@
-package com.lcy.projectscheduler.security.domain;
+package com.lcy.projectscheduler.authorization.domain;
 
 import com.lcy.projectscheduler.api.v1.dto.request.login.SignInDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.login.SignUpDTO;
 import com.lcy.projectscheduler.exception.AlreadyRegisteredEmailException;
-import com.lcy.projectscheduler.exception.SignInException;
 import com.lcy.projectscheduler.exception.NotRegisteredUserException;
-import com.lcy.projectscheduler.security.JwtTokenProvider;
-import com.lcy.projectscheduler.security.repository.UserRepository;
+import com.lcy.projectscheduler.exception.SignInException;
+import com.lcy.projectscheduler.authorization.JwtTokenProvider;
+import com.lcy.projectscheduler.authorization.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

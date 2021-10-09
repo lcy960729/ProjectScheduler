@@ -8,11 +8,11 @@ import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectService;
 import com.lcy.projectscheduler.api.v1.domain.project.session.Session;
 import com.lcy.projectscheduler.api.v1.domain.project.session.SessionService;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.session.CreateSessionDTO;
 import com.lcy.projectscheduler.api.v1.dto.request.work.CreateWorkDTO;
-import com.lcy.projectscheduler.security.repository.UserRepository;
+import com.lcy.projectscheduler.authorization.repository.UserRepository;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -86,12 +86,10 @@ class WorkServiceTest {
         user = userRepository.save(user);
         other = userRepository.save(other);
 
-        createProjectDTO.setManager(user.getId());
-        createSessionDTO.setManager(user.getId());
         createWorkDTO.setWorker(user.getId());
 
-        project = projectService.create(createProjectDTO);
-        session = sessionService.create(project.getId(), createSessionDTO);
+        project = projectService.create(user.getId(), createProjectDTO);
+        session = sessionService.create(user.getId(),project.getId(), createSessionDTO);
     }
 
     @Nested

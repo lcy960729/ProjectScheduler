@@ -1,12 +1,12 @@
-package com.lcy.projectscheduler.security.controller;
+package com.lcy.projectscheduler.authorization.controller;
 
 import com.lcy.projectscheduler.api.v1.dto.request.login.SignUpDTO;
-import com.lcy.projectscheduler.security.SecurityHeaders;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.SecurityHeaders;
+import com.lcy.projectscheduler.authorization.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.login.SignInDTO;
-import com.lcy.projectscheduler.security.domain.UserService;
-import com.lcy.projectscheduler.security.dto.UserModel;
-import com.lcy.projectscheduler.security.dto.UserModelAssembler;
+import com.lcy.projectscheduler.authorization.domain.UserService;
+import com.lcy.projectscheduler.authorization.dto.UserModel;
+import com.lcy.projectscheduler.authorization.dto.UserModelAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package com.lcy.projectscheduler.security.domain;
+package com.lcy.projectscheduler.authorization.domain;
 
 import com.lcy.projectscheduler.api.v1.domain.base.BaseEntity;
 import com.lcy.projectscheduler.api.v1.dto.request.login.SignUpDTO;

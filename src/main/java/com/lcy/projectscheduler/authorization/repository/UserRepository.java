@@ -1,6 +1,6 @@
-package com.lcy.projectscheduler.security.repository;
+package com.lcy.projectscheduler.authorization.repository;
 
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

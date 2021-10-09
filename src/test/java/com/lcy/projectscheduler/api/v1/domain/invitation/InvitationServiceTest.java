@@ -2,9 +2,9 @@ package com.lcy.projectscheduler.api.v1.domain.invitation;
 
 import com.lcy.projectscheduler.api.v1.domain.project.Project;
 import com.lcy.projectscheduler.api.v1.domain.project.ProjectService;
-import com.lcy.projectscheduler.security.domain.User;
+import com.lcy.projectscheduler.authorization.domain.User;
 import com.lcy.projectscheduler.api.v1.dto.request.project.CreateProjectDTO;
-import com.lcy.projectscheduler.security.repository.UserRepository;
+import com.lcy.projectscheduler.authorization.repository.UserRepository;
 import com.lcy.projectscheduler.exception.AlreadyProcessedInvitationException;
 import com.lcy.projectscheduler.exception.HasNotPermissionException;
 import com.lcy.projectscheduler.exception.NotRegisteredMemberException;
@@ -52,7 +52,6 @@ class InvitationServiceTest {
         receiver = userRepository.save(receiver);
         other = userRepository.save(other);
 
-        createProjectDTO.setManager(superManager.getId());
     }
 
     private User receiver = User.builder()
@@ -73,7 +72,7 @@ class InvitationServiceTest {
         @Transactional
         void fail_invite() {
             // given
-            Project project = createProjectService.create(createProjectDTO);
+            Project project = createProjectService.create(superManager.getId(),createProjectDTO);
 
             // when
             Throwable throwable = catchThrowable(() -> invitationService.invite(other.getId(), receiver.getId(), project.getId()));
@@ -88,7 +87,7 @@ class InvitationServiceTest {
         @Transactional
         void reject_alreadyProcessed() {
             // given
-            Project project = createProjectService.create(createProjectDTO);
+            Project project = createProjectService.create(superManager.getId(),createProjectDTO);
             Invitation invitation = invitationService.invite(superManager.getId(), receiver.getId(), project.getId());
 
             // when
@@ -104,7 +103,7 @@ class InvitationServiceTest {
         @Transactional
         void accept_alreadyProcessed() {
             // given
-            Project project = createProjectService.create(createProjectDTO);
+            Project project = createProjectService.create(superManager.getId(),createProjectDTO);
             Invitation invitation = invitationService.invite(superManager.getId(), receiver.getId(), project.getId());
 
             // when
@@ -124,7 +123,7 @@ class InvitationServiceTest {
         @Transactional
         void invite() {
             // given
-            Project project = createProjectService.create(createProjectDTO);
+            Project project = createProjectService.create(superManager.getId(),createProjectDTO);
 
             // when
             Invitation invitation = invitationService.invite(superManager.getId(), receiver.getId(), project.getId());
@@ -140,7 +139,7 @@ class InvitationServiceTest {
         @Transactional
         void accept() {
             // given
-            Project project = createProjectService.create(createProjectDTO);
+            Project project = createProjectService.create(superManager.getId(),createProjectDTO);
             Invitation invitation = invitationService.invite(superManager.getId(), receiver.getId(), project.getId());
 
             // when
@@ -156,7 +155,7 @@ class InvitationServiceTest {
         @Transactional
         void reject() {
             // given
-            Project project = createProjectService.create(createProjectDTO);
+            Project project = createProjectService.create(superManager.getId(),createProjectDTO);
             Invitation invitation = invitationService.invite(superManager.getId(), receiver.getId(), project.getId());
 
             // when

@@ -3,7 +3,7 @@ package com.lcy.projectscheduler.api.v1.dto.response.work;
 import com.lcy.projectscheduler.api.v1.domain.project.session.work.Work;
 import com.lcy.projectscheduler.api.v1.domain.project.session.work.WorkState;
 import com.lcy.projectscheduler.api.v1.domain.project.session.work.Worker;
-import com.lcy.projectscheduler.security.dto.UserModel;
+import com.lcy.projectscheduler.authorization.dto.UserModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.RepresentationModel;
