@@ -164,6 +164,8 @@ class SessionServiceTest {
 
             assertThat(session.getState()).isEqualTo(inProgressState);
         }
+
+
     }
 
     @Nested
