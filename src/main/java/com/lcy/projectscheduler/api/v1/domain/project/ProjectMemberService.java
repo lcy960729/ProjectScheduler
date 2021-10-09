@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ProjectMemberService {
@@ -26,5 +27,9 @@ public class ProjectMemberService {
     public ProjectMember get(long userId, long projectId) {
         return projectMemberRepository.findByUserIdAndProjectId(userId, projectId)
                 .orElseThrow(NotRegisteredMemberException::new);
+    }
+
+    public List<ProjectMember> getAll(long userId) {
+        return projectMemberRepository.findAllByUserId(userId);
     }
 }

@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/projects",
@@ -56,6 +58,17 @@ public class ProjectController {
         ProjectModel projectModel = projectModelAssembler.toModel(project);
 
         return ResponseEntity.ok(projectModel);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProjectModel>> getAll(Long userId) {
+        List<Project> projects = projectService.getAll(userId);
+
+        List<ProjectModel> projectModels = projects.stream()
+                .map(project -> projectModelAssembler.toModel(project))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(projectModels);
     }
 
     @PutMapping(path = "/{id}")
