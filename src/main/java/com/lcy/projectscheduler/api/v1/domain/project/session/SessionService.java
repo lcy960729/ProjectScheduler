@@ -52,6 +52,13 @@ public class SessionService {
                 .orElseThrow(NotFoundEntityException::new);
     }
 
+    public List<Session> getAll(long userId, long projectId) {
+        ProjectMember projectMember = projectMemberService.get(userId, projectId);
+        projectMember.checkRegisteredAndPermission(Permission.READ);
+
+        return sessionRepository.findAllByProjectId(projectId);
+    }
+
     @Transactional
     public Session update(long userId, long projectId, long sessionId, UpdateSessionDTO updateSessionDTO) {
         ProjectMember projectMember = projectMemberService.get(userId, projectId);

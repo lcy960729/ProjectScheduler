@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/projects/{projectId}/sessions",
@@ -54,6 +56,20 @@ public class SessionController {
         SessionModel sessionModel = sessionModelAssembler.toModel(session);
 
         return ResponseEntity.ok(sessionModel);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SessionModel>> getAll(Long userId,
+                                                     @PathVariable("projectId") Long projectId,
+                                                     @PathVariable("id") Long sessionId) {
+
+        List<Session> sessions = sessionService.getAll(userId, projectId);
+
+        List<SessionModel> sessionModels = sessions.stream()
+                .map(sessionModelAssembler::toModel)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(sessionModels);
     }
 
     @PutMapping(path = "/{id}")
