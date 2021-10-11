@@ -1,0 +1,5 @@
+rootProject.name = 'ps'
+include 'core'
+include 'project-api'
+include 'auth-api'
+

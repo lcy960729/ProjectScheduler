@@ -1,0 +1,91 @@
+buildscript {
+    ext {
+        dependencyManagementVersion = '1.0.11.RELEASE'
+        springBootVersion = '2.5.4'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+
+    group = 'com.lcy'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '1.8'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        implementation 'org.slf4j:slf4j-api'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':core') {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
+project(':project-api') {
+    dependencies {
+        compileOnly project(':core')
+
+        implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
+project(':auth-api') {
+    dependencies {
+        compileOnly project(':core')
+
+        implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+        implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+        runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
+                'io.jsonwebtoken:jjwt-jackson:0.11.2' // or 'io.jsonwebtoken:jjwt-gson:0.11.2' for gson
+
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
