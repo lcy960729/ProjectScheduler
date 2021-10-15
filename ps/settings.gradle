@@ -1,6 +1,17 @@
 rootProject.name = 'ps'
 include 'core'
+
+include 'user'
+include 'user-api'
+
+include 'project'
 include 'project-api'
-include 'auth-api'
+
+include 'member'
+include 'member-api'
+
 include 'contents-api'
+
+include 'ps-monoliths'
+include 'security'
 

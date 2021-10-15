@@ -1,7 +1,7 @@
 buildscript {
     ext {
         dependencyManagementVersion = '1.0.11.RELEASE'
-        springBootVersion = '2.5.4'
+        springBootVersion = '2.5.5'
     }
 
     repositories {
@@ -51,31 +51,38 @@ subprojects {
 
 project(':core') {
     dependencies {
-
-
         implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
         implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework:spring-context'
+        implementation 'org.springframework:spring-context-support'
 
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
         implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
     }
 }
 
-project(':project-api') {
+
+project(':user') {
     dependencies {
-        compileOnly project(':core')
+        implementation project(':core')
 
         implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
         implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+        runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
+                'io.jsonwebtoken:jjwt-jackson:0.11.2' // or 'io.jsonwebtoken:jjwt-gson:0.11.2' for gson
 
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
         implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
     }
 }
 
-project(':auth-api') {
+project(':user-api') {
     dependencies {
-        compileOnly project(':core')
+        implementation project(':core')
+        implementation project(':user')
 
         implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
         runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
@@ -89,14 +96,39 @@ project(':auth-api') {
     }
 }
 
-project(':project-api') {
+
+project(':security') {
     dependencies {
-        compileOnly project(':core')
+        implementation project(':core')
+
+        implementation 'org.springframework.boot:spring-boot-starter-aop:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    }
+}
+
+project(':project') {
+    dependencies {
+        implementation project(':core')
 
         implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
         implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
 
-        implementation 'org.springframework.kafka:spring-kafka'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
+project(':project-api') {
+    apply plugin: 'org.springframework.boot'
+
+    dependencies {
+        implementation project(':core')
+        implementation project(':project')
+        implementation project(':security')
+
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
 
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
         implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
@@ -105,13 +137,61 @@ project(':project-api') {
 
 project(':contents-api') {
     dependencies {
-        compileOnly project(':core')
+        implementation project(':core')
+
+        implementation 'org.springframework.kafka:spring-kafka'
+
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
+
+project(':member') {
+    dependencies {
+        implementation project(':core')
 
         implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
         runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
                 'io.jsonwebtoken:jjwt-jackson:0.11.2' // or 'io.jsonwebtoken:jjwt-gson:0.11.2' for gson
 
-        implementation 'org.springframework.kafka:spring-kafka'
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
+project(':member-api') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':member')
+        implementation project(':security')
+
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    }
+}
+
+
+project(':ps-monoliths') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':project')
+        implementation project(':member')
+        implementation project(':user')
+        implementation project(':security')
+
+        implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+        runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
+                'io.jsonwebtoken:jjwt-jackson:0.11.2' // or 'io.jsonwebtoken:jjwt-gson:0.11.2' for gson
 
         implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.5.5'
         implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
