@@ -1,8 +1,6 @@
 # 프로젝트 스케쥴러
 
-[GitHub - lcy960729/ProjectScheduler: 팀프로젝트 스케쥴러](https://github.com/lcy960729/ProjectScheduler)
-
-# 프로젝트 기획
+## 프로젝트 기획
 
 조별과제와 같이 여러 사람과 함께하는 공동 작업을 관리하는 서비스입니다.
 
@@ -10,17 +8,17 @@
 
 ![main](https://user-images.githubusercontent.com/58020519/137517666-e14186d8-bac6-41ad-83ab-6aeebbc56f9d.png)
 
-# 프로젝트 목표
+## 프로젝트 목표
 
 1. Modular-Monolitic 설계를 통해 마이크로 서비스 및 모놀리틱 서비스를 병행할 수 있도록 구현하자.
 2. 서비스 완성 후 DB 캐시 서버 도입 해보기.
 
-# 프로젝트 참여자
+## 프로젝트 참여자
 
 - 백엔드 - 이찬영
 - 프론트엔드 - 이x혜
 
-# 구현 내용 (마지막 수정 : 2021-10-15)
+## 구현 내용 (마지막 수정 : 2021-10-15)
 
 - **사용자**
     - 회원 가입
@@ -74,7 +72,7 @@
     - jwt 토큰을 사용한다.
     - spring-aop를 이용하여 컨트롤러에 요청이 들어오기전에 검증을 수행한다.
 
-# 구현 과정
+## 구현 과정
 
 [Modular-Monolitic 설계](https://www.notion.so/Modular-Monolitic-67ccd4780c614b16af87980dde12015e)
 
@@ -82,7 +80,7 @@
 
 [컨텐츠의 실시간 저장을 위한 메시지 큐 미들웨어 도입](https://www.notion.so/955b817e9f6d4c68a4c4c59f0b020c87)
 
-# 개발 환경
+## 개발 환경
 
 [Backend Server](https://www.notion.so/18b86176f9a64957bb40f071007a81b0)
 
